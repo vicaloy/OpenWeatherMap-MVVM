@@ -106,7 +106,7 @@ class UserFragment : Fragment(), Injectable {
             appExecutors = appExecutors,
             showFullName = false
         ) { repo ->
-            findNavController().navigate(UserFragmentDirections.showRepo(repo.owner.login, repo.name))
+            findNavController().navigate(UserFragmentDirections.showRepo(repo.owner.login, repo.name, ""))
         }
         binding.repoList.adapter = rvAdapter
         this.adapter = rvAdapter

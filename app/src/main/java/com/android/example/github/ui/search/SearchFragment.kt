@@ -32,6 +32,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +43,9 @@ import com.android.example.github.databinding.SearchFragmentBinding
 import com.android.example.github.di.Injectable
 import com.android.example.github.ui.common.RepoListAdapter
 import com.android.example.github.ui.common.RetryCallback
+import com.android.example.github.ui.repo.RepoFragmentDirections
 import com.android.example.github.ui.user.UserFragment
+import com.android.example.github.ui.user.UserFragmentDirections
 import com.android.example.github.util.autoCleared
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
@@ -111,11 +114,7 @@ class SearchFragment : Fragment(), Injectable {
     }
 
     private fun replaceFragment(){
-        val fragmentManager = requireActivity().supportFragmentManager
+        findNavController().navigate(UserFragmentDirections.showRepo(binding.username.text.toString(), binding.email.text.toString(), binding.birthday.text.toString()))
 
-            fragmentManager.commit {
-                setReorderingAllowed(true)
-                replace(R.id.container, UserFragment())
-            }
     }
 }

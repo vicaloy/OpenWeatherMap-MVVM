@@ -31,10 +31,13 @@
         android:name="com.android.example.github.ui.repo.RepoFragment"
         android:label="RepoFragment" >
         <argument
-            android:name="owner"
+            android:name="name"
+            app:argType="string"/>
+        <argument
+            android:name="email"
             app:argType="string" />
         <argument
-            android:name="name"
+            android:name="birthday"
             app:argType="string" />
         <action
             android:id="@+id/showUser"
