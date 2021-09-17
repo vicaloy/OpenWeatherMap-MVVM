@@ -39,12 +39,17 @@ android {
     buildTypes {
           debug {
               testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
+              buildConfigField "String", "BASE_URL", "\""+"https://samples.openweathermap.org/data/2.5/"+ "\""
+              buildConfigField "String", "API_KEY", "\"" + "b6907d289e10d714a6e88b30761fae22" + "\""
           }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\""+"https://samples.openweathermap.org/data/2.5/"+ "\""
+            buildConfigField "String", "API_KEY", "\"" + "b6907d289e10d714a6e88b30761fae22" + "\""
         }
     }
+
     dataBinding {
         enabled = true
     }
