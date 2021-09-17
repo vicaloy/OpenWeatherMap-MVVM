@@ -17,15 +17,17 @@
 package com.android.example.github.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.android.example.github.BuildConfig
+import com.android.example.github.R
 import com.android.example.github.api.GithubService
 import com.android.example.github.db.GithubDb
 import com.android.example.github.db.RepoDao
 import com.android.example.github.db.UserDao
 import com.android.example.github.network.ApiInterface
 import com.android.example.github.network.QueryParameterAddInterceptor
-import com.android.example.github.network.RetrofitClient
 import com.android.example.github.util.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -70,6 +72,12 @@ class AppModule {
             .databaseBuilder(app, GithubDb::class.java, "github.db")
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(app: Application): SharedPreferences {
+        return app.getSharedPreferences(app.getString(R.string.app_name), Context.MODE_PRIVATE)
     }
 
     @Singleton
