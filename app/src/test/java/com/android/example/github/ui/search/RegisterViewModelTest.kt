@@ -39,17 +39,17 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 
 @RunWith(JUnit4::class)
-class SearchViewModelTest {
+class RegisterViewModelTest {
     @Rule
     @JvmField
     val instantExecutor = InstantTaskExecutorRule()
     private val repository = mock(RepoRepository::class.java)
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: RegisterViewModel
 
     @Before
     fun init() {
         // need to init after instant executor rule is established.
-        viewModel = SearchViewModel(repository)
+        viewModel = RegisterViewModel(repository)
     }
 
     @Test

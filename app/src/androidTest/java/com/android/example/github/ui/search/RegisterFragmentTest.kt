@@ -60,7 +60,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
-class SearchFragmentTest {
+class RegisterFragmentTest {
     @Rule
     @JvmField
     val executorRule = TaskExecutorWithIdlingResourceRule()
@@ -72,14 +72,14 @@ class SearchFragmentTest {
     val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule()
 
     private lateinit var mockBindingAdapter: FragmentBindingAdapters
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: RegisterViewModel
     private val navController = mock<NavController>()
     private val results = MutableLiveData<Resource<List<Repo>>>()
-    private val loadMoreStatus = MutableLiveData<SearchViewModel.LoadMoreState>()
+    private val loadMoreStatus = MutableLiveData<RegisterViewModel.LoadMoreState>()
 
     @Before
     fun init() {
-        viewModel = mock(SearchViewModel::class.java)
+        viewModel = mock(RegisterViewModel::class.java)
         doReturn(loadMoreStatus).`when`(viewModel).loadMoreStatus
         `when`(viewModel.results).thenReturn(results)
 
@@ -87,7 +87,7 @@ class SearchFragmentTest {
 
         val scenario = launchFragmentInContainer(
                 themeResId = R.style.AppTheme) {
-            SearchFragment().apply {
+            RegisterFragment().apply {
                 appExecutors = countingAppExecutors.appExecutors
                 viewModelFactory = ViewModelUtil.createFor(viewModel)
                 dataBindingComponent = object : DataBindingComponent {
@@ -150,7 +150,7 @@ class SearchFragmentTest {
 
     @Test
     fun navigateToRepo() {
-        doNothing().`when`<SearchViewModel>(viewModel).loadNextPage()
+        doNothing().`when`<RegisterViewModel>(viewModel).loadNextPage()
         val repo = TestUtil.createRepo("foo", "bar", "desc")
         results.postValue(Resource.success(arrayListOf(repo)))
         onView(withText("desc")).perform(click())
@@ -161,15 +161,15 @@ class SearchFragmentTest {
 
     @Test
     fun loadMoreProgress() {
-        loadMoreStatus.postValue(SearchViewModel.LoadMoreState(true, null))
+        loadMoreStatus.postValue(RegisterViewModel.LoadMoreState(true, null))
         onView(withId(R.id.load_more_bar)).check(matches(isDisplayed()))
-        loadMoreStatus.postValue(SearchViewModel.LoadMoreState(false, null))
+        loadMoreStatus.postValue(RegisterViewModel.LoadMoreState(false, null))
         onView(withId(R.id.load_more_bar)).check(matches(not(isDisplayed())))
     }
 
     @Test
     fun loadMoreProgressError() {
-        loadMoreStatus.postValue(SearchViewModel.LoadMoreState(true, "QQ"))
+        loadMoreStatus.postValue(RegisterViewModel.LoadMoreState(true, "QQ"))
         onView(withText("QQ")).check(
             matches(
                 withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)

@@ -19,26 +19,19 @@ package com.android.example.github.ui.search
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
 import com.android.example.github.R
 import com.android.example.github.repository.RepoRepository
 import com.android.example.github.testing.OpenForTesting
-import com.android.example.github.util.AbsentLiveData
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.Resource
-import com.android.example.github.vo.Status
-import java.util.Locale
 import javax.inject.Inject
 
 @OpenForTesting
-class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : ViewModel() {
+class RegisterViewModel @Inject constructor(repoRepository: RepoRepository) : ViewModel() {
 
     val register: RegisterObservable = RegisterObservable()
 
-    private val _loginForm = MutableLiveData<LoginFormState>()
-    val loginFormState: LiveData<LoginFormState> = _loginForm
+    private val _loginForm = MutableLiveData<RegisterFormState>()
+    val registerFormState: LiveData<RegisterFormState> = _loginForm
 
     fun onRegisterClick(){
         registerDataChanged()
@@ -47,13 +40,13 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
 
     fun registerDataChanged() {
         if (!isNameValid(register.name)) {
-            _loginForm.value = LoginFormState(nameError = R.string.invalid_username)
+            _loginForm.value = RegisterFormState(nameError = R.string.invalid_username)
         } else if (!isEmailValid(register.email)) {
-            _loginForm.value = LoginFormState(emailError = R.string.invalid_email)
+            _loginForm.value = RegisterFormState(emailError = R.string.invalid_email)
         } else if (!isBirthdayValid(register.birthday)) {
-            _loginForm.value = LoginFormState(birthdayError = R.string.invalid_birthday)
+            _loginForm.value = RegisterFormState(birthdayError = R.string.invalid_birthday)
         } else {
-            _loginForm.value = LoginFormState(isDataValid = true)
+            _loginForm.value = RegisterFormState(isDataValid = true)
         }
     }
 

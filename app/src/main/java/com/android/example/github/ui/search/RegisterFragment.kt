@@ -16,41 +16,28 @@
 
 package com.android.example.github.ui.search
 
-import android.content.Context
 import android.os.Bundle
-import android.os.IBinder
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.example.github.AppExecutors
 import com.android.example.github.R
 import com.android.example.github.binding.FragmentDataBindingComponent
 import com.android.example.github.databinding.SearchFragmentBinding
 import com.android.example.github.di.Injectable
 import com.android.example.github.ui.common.RepoListAdapter
-import com.android.example.github.ui.common.RetryCallback
-import com.android.example.github.ui.repo.RepoFragmentDirections
-import com.android.example.github.ui.user.UserFragment
 import com.android.example.github.ui.user.UserFragmentDirections
 import com.android.example.github.util.autoCleared
-import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
-class SearchFragment : Fragment(), Injectable {
+class RegisterFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -64,7 +51,7 @@ class SearchFragment : Fragment(), Injectable {
 
     var adapter by autoCleared<RepoListAdapter>()
 
-    val searchViewModel: SearchViewModel by viewModels {
+    val registerViewModel: RegisterViewModel by viewModels {
         viewModelFactory
     }
 
@@ -85,7 +72,7 @@ class SearchFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = searchViewModel
+        binding.viewModel = registerViewModel
 
         val usernameEditText = binding.username
         val emailEditText = binding.email
@@ -93,7 +80,7 @@ class SearchFragment : Fragment(), Injectable {
         val loginButton = binding.login
         val loadingProgressBar = binding.loading
 
-        searchViewModel.loginFormState.observe(viewLifecycleOwner,
+        registerViewModel.registerFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
                 if (loginFormState == null) {
                     return@Observer

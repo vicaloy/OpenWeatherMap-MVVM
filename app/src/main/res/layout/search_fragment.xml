@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.android.example.github.ui.search.SearchViewModel" />
+            type="com.android.example.github.ui.search.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

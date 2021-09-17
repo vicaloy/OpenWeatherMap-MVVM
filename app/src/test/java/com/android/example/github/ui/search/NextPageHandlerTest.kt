@@ -41,20 +41,20 @@ class NextPageHandlerTest {
 
     private val repository = mock(RepoRepository::class.java)
 
-    private lateinit var pageHandler: SearchViewModel.NextPageHandler
+    private lateinit var pageHandler: RegisterViewModel.NextPageHandler
 
     @Before
     fun init() {
-        pageHandler = SearchViewModel.NextPageHandler(repository)
+        pageHandler = RegisterViewModel.NextPageHandler(repository)
     }
 
-    private val status: SearchViewModel.LoadMoreState?
+    private val status: RegisterViewModel.LoadMoreState?
         get() = pageHandler.loadMoreState.value
 
     @Test
     fun constructor() {
         val initial = status
-        assertThat<SearchViewModel.LoadMoreState>(initial, notNullValue())
+        assertThat<RegisterViewModel.LoadMoreState>(initial, notNullValue())
         assertThat(initial?.isRunning, `is`(false))
         assertThat(initial?.errorMessage, nullValue())
     }
