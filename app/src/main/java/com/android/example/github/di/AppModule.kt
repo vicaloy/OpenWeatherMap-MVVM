@@ -18,13 +18,18 @@ package com.android.example.github.di
 
 import android.app.Application
 import androidx.room.Room
+import com.android.example.github.BuildConfig
 import com.android.example.github.api.GithubService
 import com.android.example.github.db.GithubDb
 import com.android.example.github.db.RepoDao
 import com.android.example.github.db.UserDao
+import com.android.example.github.network.ApiInterface
+import com.android.example.github.network.QueryParameterAddInterceptor
+import com.android.example.github.network.RetrofitClient
 import com.android.example.github.util.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -40,6 +45,22 @@ class AppModule {
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
             .create(GithubService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherService(): ApiInterface {
+        val httpClient = OkHttpClient.Builder()
+            .addInterceptor(QueryParameterAddInterceptor())
+        val client = httpClient.build()
+
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .build()
+            .create(ApiInterface::class.java)
     }
 
     @Singleton
