@@ -33,6 +33,7 @@ import javax.inject.Inject
 @OpenForTesting
 class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : ViewModel() {
 
+    val register: RegisterObservable = RegisterObservable()
     private val _query = MutableLiveData<String>()
     private val nextPageHandler = NextPageHandler(repoRepository)
 

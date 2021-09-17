@@ -80,82 +80,21 @@ class SearchFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
-        initRecyclerView()
-        val rvAdapter = RepoListAdapter(
-            dataBindingComponent = dataBindingComponent,
-            appExecutors = appExecutors,
-            showFullName = true
-        ) { repo ->
-            findNavController().navigate(
-                    SearchFragmentDirections.showRepo(repo.owner.login, repo.name)
-            )
-        }
-        binding.query = searchViewModel.query
-        binding.repoList.adapter = rvAdapter
-        adapter = rvAdapter
+        binding.viewModel = searchViewModel
 
-        initSearchInputListener()
 
-        binding.callback = object : RetryCallback {
-            override fun retry() {
-                searchViewModel.refresh()
-            }
-        }
+
     }
 
     private fun initSearchInputListener() {
-        binding.input.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                doSearch(view)
-                true
-            } else {
-                false
-            }
-        }
-        binding.input.setOnKeyListener { view: View, keyCode: Int, event: KeyEvent ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                doSearch(view)
-                true
-            } else {
-                false
-            }
-        }
+
     }
 
     private fun doSearch(v: View) {
-        val query = binding.input.text.toString()
-        // Dismiss keyboard
-        dismissKeyboard(v.windowToken)
-        searchViewModel.setQuery(query)
     }
 
     private fun initRecyclerView() {
 
-        binding.repoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val lastPosition = layoutManager.findLastVisibleItemPosition()
-                if (lastPosition == adapter.itemCount - 1) {
-                    searchViewModel.loadNextPage()
-                }
-            }
-        })
-        binding.searchResult = searchViewModel.results
-        searchViewModel.results.observe(viewLifecycleOwner, Observer { result ->
-            adapter.submitList(result?.data)
-        })
-
-        searchViewModel.loadMoreStatus.observe(viewLifecycleOwner, Observer { loadingMore ->
-            if (loadingMore == null) {
-                binding.loadingMore = false
-            } else {
-                binding.loadingMore = loadingMore.isRunning
-                val error = loadingMore.errorMessageIfNotHandled
-                if (error != null) {
-                    Snackbar.make(binding.loadMoreBar, error, Snackbar.LENGTH_LONG).show()
-                }
-            }
-        })
     }
 
     private fun dismissKeyboard(windowToken: IBinder) {
