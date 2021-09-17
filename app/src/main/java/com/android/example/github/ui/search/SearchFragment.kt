@@ -28,6 +28,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +42,7 @@ import com.android.example.github.databinding.SearchFragmentBinding
 import com.android.example.github.di.Injectable
 import com.android.example.github.ui.common.RepoListAdapter
 import com.android.example.github.ui.common.RetryCallback
+import com.android.example.github.ui.user.UserFragment
 import com.android.example.github.util.autoCleared
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
@@ -82,23 +84,38 @@ class SearchFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = searchViewModel
 
+        val usernameEditText = binding.username
+        val emailEditText = binding.email
+        val birthdayEditText = binding.birthday
+        val loginButton = binding.login
+        val loadingProgressBar = binding.loading
 
-
+        searchViewModel.loginFormState.observe(viewLifecycleOwner,
+            Observer { loginFormState ->
+                if (loginFormState == null) {
+                    return@Observer
+                }
+                loginFormState.nameError?.let {
+                    usernameEditText.error = getString(it)
+                }
+                loginFormState.emailError?.let {
+                    emailEditText.error = getString(it)
+                }
+                loginFormState.birthdayError?.let {
+                    birthdayEditText.error = getString(it)
+                }
+                if(loginFormState.isDataValid){
+                    replaceFragment()
+                }
+            })
     }
 
-    private fun initSearchInputListener() {
+    private fun replaceFragment(){
+        val fragmentManager = requireActivity().supportFragmentManager
 
-    }
-
-    private fun doSearch(v: View) {
-    }
-
-    private fun initRecyclerView() {
-
-    }
-
-    private fun dismissKeyboard(windowToken: IBinder) {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(windowToken, 0)
+            fragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.container, UserFragment())
+            }
     }
 }
