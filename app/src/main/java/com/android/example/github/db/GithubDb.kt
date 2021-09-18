@@ -19,10 +19,7 @@ package com.android.example.github.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.android.example.github.vo.Contributor
-import com.android.example.github.vo.Repo
-import com.android.example.github.vo.RepoSearchResult
-import com.android.example.github.vo.User
+import com.android.example.github.vo.*
 
 /**
  * Main database description.
@@ -32,8 +29,9 @@ import com.android.example.github.vo.User
         User::class,
         Repo::class,
         Contributor::class,
-        RepoSearchResult::class],
-    version = 3,
+        RepoSearchResult::class,
+        CurrentWeather::class],
+    version = 4,
     exportSchema = false
 )
 abstract class GithubDb : RoomDatabase() {
@@ -41,4 +39,6 @@ abstract class GithubDb : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     abstract fun repoDao(): RepoDao
+
+    abstract fun weatherDao(): WeatherDao
 }

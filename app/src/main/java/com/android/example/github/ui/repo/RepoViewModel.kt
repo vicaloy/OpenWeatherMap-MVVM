@@ -21,6 +21,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.android.example.github.repository.RepoRepository
+import com.android.example.github.repository.WeatherRepository
 import com.android.example.github.testing.OpenForTesting
 import com.android.example.github.util.AbsentLiveData
 import com.android.example.github.vo.Contributor
@@ -29,8 +30,13 @@ import com.android.example.github.vo.Resource
 import javax.inject.Inject
 
 @OpenForTesting
-class RepoViewModel @Inject constructor(repository: RepoRepository) : ViewModel() {
-    private val _repoId: MutableLiveData<RepoId> = MutableLiveData()
+class RepoViewModel @Inject constructor(val repository: WeatherRepository) : ViewModel() {
+
+    fun loadWeather(cityId:Int){
+        repository.loadRepo(cityId)
+    }
+
+/*private val _repoId: MutableLiveData<RepoId> = MutableLiveData()
     val repoId: LiveData<RepoId>
         get() = _repoId
     val repo: LiveData<Resource<Repo>> = _repoId.switchMap { input ->
@@ -68,5 +74,5 @@ class RepoViewModel @Inject constructor(repository: RepoRepository) : ViewModel(
                 f(owner, name)
             }
         }
-    }
+    }*/
 }

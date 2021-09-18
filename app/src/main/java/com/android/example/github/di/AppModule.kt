@@ -26,7 +26,8 @@ import com.android.example.github.api.GithubService
 import com.android.example.github.db.GithubDb
 import com.android.example.github.db.RepoDao
 import com.android.example.github.db.UserDao
-import com.android.example.github.network.ApiInterface
+import com.android.example.github.db.WeatherDao
+import com.android.example.github.network.WeatherService
 import com.android.example.github.network.QueryParameterAddInterceptor
 import com.android.example.github.util.LiveDataCallAdapterFactory
 import dagger.Module
@@ -51,7 +52,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideWeatherService(): ApiInterface {
+    fun provideWeatherService(): WeatherService {
         val httpClient = OkHttpClient.Builder()
             .addInterceptor(QueryParameterAddInterceptor())
         val client = httpClient.build()
@@ -62,7 +63,7 @@ class AppModule {
             .client(client)
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
-            .create(ApiInterface::class.java)
+            .create(WeatherService::class.java)
     }
 
     @Singleton
@@ -90,5 +91,11 @@ class AppModule {
     @Provides
     fun provideRepoDao(db: GithubDb): RepoDao {
         return db.repoDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherDao(db: GithubDb): WeatherDao {
+        return db.weatherDao()
     }
 }

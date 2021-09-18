@@ -72,18 +72,13 @@ class RepoFragment : Fragment(), Injectable {
             container,
             false
         )
-        dataBinding.retryCallback = object : RetryCallback {
-            override fun retry() {
-                repoViewModel.retry()
-            }
-        }
+
         binding = dataBinding
         return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        repoViewModel.setId(params.email, params.name)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.repo = repoViewModel.repo
+        binding.viewModel = repoViewModel
     }
 }
