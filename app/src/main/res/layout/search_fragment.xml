@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.android.example.github.ui.search.RegisterViewModel" />
+            type="com.android.example.github.presentation.search.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         android:paddingTop="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
-        tools:context=".ui.login.LoginFragment">
+        tools:context=".presentation.login.LoginFragment">
 
         <EditText
             android:id="@+id/username"

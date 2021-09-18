@@ -29,7 +29,7 @@
         <import type="android.graphics.drawable.Drawable"/>
         <variable
             name="args"
-            type="com.android.example.github.ui.user.UserFragmentArgs" />
+            type="com.android.example.github.presentation.user.UserFragmentArgs" />
 
         <variable
             name="userResource"
@@ -41,7 +41,7 @@
 
         <variable
             name="retryCallback"
-            type="com.android.example.github.ui.common.RetryCallback" />
+            type="com.android.example.github.presentation.common.RetryCallback" />
 
         <variable
             name="imageRequestListener"

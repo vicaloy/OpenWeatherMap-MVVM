@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.example.github.vo
+package com.android.example.github.presentation.binding
 
-import androidx.room.Entity
-import androidx.room.TypeConverters
-import com.android.example.github.data.db.GithubTypeConverters
+import androidx.databinding.DataBindingComponent
+import androidx.fragment.app.Fragment
 
-@Entity(primaryKeys = ["query"])
-@TypeConverters(GithubTypeConverters::class)
-data class RepoSearchResult(
-    val query: String,
-    val repoIds: List<Int>,
-    val totalCount: Int,
-    val next: Int?
-)
+/**
+ * A Data Binding Component implementation for fragments.
+ */
+class FragmentDataBindingComponent(fragment: Fragment) : DataBindingComponent {
+    private val adapter = FragmentBindingAdapters(fragment)
+
+    override fun getFragmentBindingAdapters() = adapter
+}

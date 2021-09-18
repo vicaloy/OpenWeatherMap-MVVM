@@ -29,7 +29,7 @@
 
         <variable
             name="callback"
-            type="com.android.example.github.ui.common.RetryCallback" />
+            type="com.android.example.github.presentation.common.RetryCallback" />
     </data>
 
     <LinearLayout

@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.example.github.vo
+package com.android.example.github.presentation.common
 
-import androidx.room.Entity
-import androidx.room.TypeConverters
-import com.android.example.github.data.db.GithubTypeConverters
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
-@Entity(primaryKeys = ["query"])
-@TypeConverters(GithubTypeConverters::class)
-data class RepoSearchResult(
-    val query: String,
-    val repoIds: List<Int>,
-    val totalCount: Int,
-    val next: Int?
-)
+/**
+ * A generic ViewHolder that works with a [ViewDataBinding].
+ * @param <T> The type of the ViewDataBinding.
+</T> */
+class DataBoundViewHolder<out T : ViewDataBinding> constructor(val binding: T) :
+    RecyclerView.ViewHolder(binding.root)

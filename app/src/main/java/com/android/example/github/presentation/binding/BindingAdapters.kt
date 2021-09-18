@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.android.example.github.vo
+package com.android.example.github.presentation.binding
 
-import androidx.room.Entity
-import androidx.room.TypeConverters
-import com.android.example.github.data.db.GithubTypeConverters
+import androidx.databinding.BindingAdapter
+import android.view.View
 
-@Entity(primaryKeys = ["query"])
-@TypeConverters(GithubTypeConverters::class)
-data class RepoSearchResult(
-    val query: String,
-    val repoIds: List<Int>,
-    val totalCount: Int,
-    val next: Int?
-)
+/**
+ * Data Binding adapters specific to the app.
+ */
+object BindingAdapters {
+    @JvmStatic
+    @BindingAdapter("visibleGone")
+    fun showHide(view: View, show: Boolean) {
+        view.visibility = if (show) View.VISIBLE else View.GONE
+    }
+}

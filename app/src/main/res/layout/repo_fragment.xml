@@ -22,7 +22,7 @@
 
         <variable
             name="viewModel"
-            type="com.android.example.github.ui.repo.RepoViewModel" />
+            type="com.android.example.github.presentation.repo.RepoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

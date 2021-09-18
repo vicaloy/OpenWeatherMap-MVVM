@@ -16,9 +16,9 @@
 
 package com.android.example.github.di
 
-import com.android.example.github.ui.repo.RepoFragment
-import com.android.example.github.ui.search.RegisterFragment
-import com.android.example.github.ui.user.UserFragment
+import com.android.example.github.presentation.repo.RepoFragment
+import com.android.example.github.presentation.search.RegisterFragment
+import com.android.example.github.presentation.user.UserFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

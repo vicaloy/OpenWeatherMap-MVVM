@@ -23,12 +23,14 @@ import androidx.room.Room
 import com.android.example.github.BuildConfig
 import com.android.example.github.R
 import com.android.example.github.api.GithubService
-import com.android.example.github.db.GithubDb
-import com.android.example.github.db.RepoDao
-import com.android.example.github.db.UserDao
-import com.android.example.github.db.WeatherDao
-import com.android.example.github.network.WeatherService
-import com.android.example.github.network.QueryParameterAddInterceptor
+import com.android.example.github.data.db.GithubDb
+import com.android.example.github.data.db.RepoDao
+import com.android.example.github.data.db.UserDao
+import com.android.example.github.data.db.WeatherDao
+import com.android.example.github.data.network.WeatherService
+import com.android.example.github.data.network.QueryParameterAddInterceptor
+import com.android.example.github.usecase.IWeatherInfoUseCase
+import com.android.example.github.usecase.WeatherInfoUseCase
 import com.android.example.github.util.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -97,5 +99,11 @@ class AppModule {
     @Provides
     fun provideWeatherDao(db: GithubDb): WeatherDao {
         return db.weatherDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherInfoUseCase(weatherInfoUseCase: WeatherInfoUseCase): IWeatherInfoUseCase{
+        return WeatherInfoUseCase(provideWeatherService())
     }
 }

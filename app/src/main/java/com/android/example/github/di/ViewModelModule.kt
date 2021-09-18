@@ -19,10 +19,10 @@ package com.android.example.github.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-import com.android.example.github.ui.repo.RepoViewModel
-import com.android.example.github.ui.search.RegisterViewModel
-import com.android.example.github.ui.user.UserViewModel
-import com.android.example.github.viewmodel.GithubViewModelFactory
+import com.android.example.github.presentation.repo.RepoViewModel
+import com.android.example.github.presentation.search.RegisterViewModel
+import com.android.example.github.presentation.user.UserViewModel
+import com.android.example.github.presentation.viewmodel.GithubViewModelFactory
 
 import dagger.Binds
 import dagger.Module
