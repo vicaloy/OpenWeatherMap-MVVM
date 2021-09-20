@@ -1,4 +1,4 @@
-package com.android.example.github.presentation.search
+package com.android.example.github.presentation.register
 
 import com.android.example.github.BR
 

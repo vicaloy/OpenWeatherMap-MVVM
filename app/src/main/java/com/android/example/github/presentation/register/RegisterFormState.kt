@@ -1,4 +1,4 @@
-package com.android.example.github.presentation.search
+package com.android.example.github.presentation.register
 
 /**
  * Data validation state of the login form.

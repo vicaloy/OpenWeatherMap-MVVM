@@ -1,4 +1,4 @@
-package com.android.example.github.presentation.repo
+package com.android.example.github.presentation.weather
 
 import androidx.lifecycle.ViewModel
 import com.android.example.github.api.RequestCompleteListener

@@ -1,20 +1,6 @@
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-package com.android.example.github.presentation.search
+
+package com.android.example.github.presentation.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,11 +15,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.android.example.github.AppExecutors
 import com.android.example.github.R
+import com.android.example.github.databinding.RegisterFragmentBinding
 import com.android.example.github.presentation.binding.FragmentDataBindingComponent
-import com.android.example.github.databinding.SearchFragmentBinding
 import com.android.example.github.di.Injectable
-import com.android.example.github.presentation.common.RepoListAdapter
-import com.android.example.github.presentation.user.UserFragmentDirections
 import com.android.example.github.util.autoCleared
 import javax.inject.Inject
 
@@ -47,9 +31,7 @@ class RegisterFragment : Fragment(), Injectable {
 
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    var binding by autoCleared<SearchFragmentBinding>()
-
-    var adapter by autoCleared<RepoListAdapter>()
+    var binding by autoCleared<RegisterFragmentBinding>()
 
     val registerViewModel: RegisterViewModel by viewModels {
         viewModelFactory
@@ -61,7 +43,7 @@ class RegisterFragment : Fragment(), Injectable {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.search_fragment,
+            R.layout.register_fragment,
             container,
             false,
             dataBindingComponent
@@ -101,7 +83,7 @@ class RegisterFragment : Fragment(), Injectable {
     }
 
     private fun replaceFragment(){
-        findNavController().navigate(UserFragmentDirections.showRepo(binding.username.text.toString(), binding.email.text.toString(), binding.birthday.text.toString()))
+        findNavController().navigate(RegisterFragmentDirections.showWeather(binding.username.text.toString(), binding.email.text.toString(), binding.birthday.text.toString()))
 
     }
 }
