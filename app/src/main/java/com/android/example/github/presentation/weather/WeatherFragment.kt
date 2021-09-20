@@ -1,11 +1,6 @@
-
-
 package com.android.example.github.presentation.weather
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,6 +14,10 @@ import com.android.example.github.databinding.WeatherFragmentBinding
 import com.android.example.github.di.Injectable
 import com.android.example.github.util.autoCleared
 import javax.inject.Inject
+import android.view.*
+import androidx.lifecycle.Observer
+import com.android.example.github.vo.RegisterUser
+
 
 class WeatherFragment : Fragment(), Injectable {
 
@@ -32,8 +31,6 @@ class WeatherFragment : Fragment(), Injectable {
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    // mutable for testing
-    var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
     var binding by autoCleared<WeatherFragmentBinding>()
 
     private val params by navArgs<WeatherFragmentArgs>()
@@ -58,6 +55,30 @@ class WeatherFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = weatherViewModel
 
+        setHasOptionsMenu(true)
+
         weatherViewModel.loadWeather(1185241)
+
+        weatherViewModel.logoutSuccess.observe(viewLifecycleOwner,
+            { logoutSuccess ->
+                if (logoutSuccess) {
+                    requireActivity().onBackPressed()
+                }
+
+            })
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logout -> weatherViewModel.logout()
+
+        }
+        return true
     }
 }

@@ -1,18 +1,13 @@
 package com.android.example.github.usecase
 
-import android.content.Context
-import com.android.example.github.api.RequestCompleteListener
-import com.android.example.github.api.WeatherInfoResponse
+import com.android.example.github.data.network.RequestCompleteListener
+import com.android.example.github.data.network.WeatherInfoResponse
 import com.android.example.github.data.network.WeatherService
-import com.android.example.github.usecase.IWeatherInfoUseCase
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 import javax.inject.Inject
 
 class WeatherInfoUseCase @Inject constructor(

@@ -7,9 +7,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.android.example.github.vo.*
 
-/**
- * Main database description.
- */
+
 @Database(
     entities = [
         CurrentWeather::class],

@@ -1,9 +1,6 @@
 package com.android.example.github.common
 
-/**
- * A generic class that holds a value with its loading status.
- * @param <T>
- */
+
 sealed class ResultAction<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : ResultAction<T>()

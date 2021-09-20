@@ -10,6 +10,7 @@ import com.android.example.github.BuildConfig
 import com.android.example.github.R
 import com.android.example.github.data.db.WeatherDb
 import com.android.example.github.data.db.WeatherDao
+import com.android.example.github.data.db.WeatherTypeConverters
 import com.android.example.github.data.network.WeatherService
 import com.android.example.github.data.network.QueryParameterAddInterceptor
 import com.android.example.github.usecase.IWeatherInfoUseCase

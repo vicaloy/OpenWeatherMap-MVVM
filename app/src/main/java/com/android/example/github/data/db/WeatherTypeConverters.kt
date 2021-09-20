@@ -2,28 +2,23 @@
 
 package com.android.example.github.data.db
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import timber.log.Timber
+import java.text.SimpleDateFormat
 
+@ProvidedTypeConverter
 object WeatherTypeConverters {
     @TypeConverter
-    @JvmStatic
-    fun stringToIntList(data: String?): List<Int>? {
-        return data?.let {
-            it.split(",").map {
-                try {
-                    it.toInt()
-                } catch (ex: NumberFormatException) {
-                    Timber.e(ex, "Cannot convert $it to number")
-                    null
-                }
-            }
-        }?.filterNotNull()
+    fun fromTimestamp(timeStamp: Long?): String? {
+        return timeStamp?.let { FORMATTER.format(timeStamp) }
     }
 
     @TypeConverter
-    @JvmStatic
-    fun intListToString(ints: List<Int>?): String? {
-        return ints?.joinToString(",")
+    fun dateToTimestamp(timeStamp: String?): Long? {
+        return timeStamp?.let { FORMATTER.parse(it)?.time }
     }
+
+    val FORMATTER = SimpleDateFormat("dd-mmm-yyyy hh:mm:ss.s")
+
 }

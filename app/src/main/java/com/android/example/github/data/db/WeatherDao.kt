@@ -9,9 +9,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.android.example.github.vo.CurrentWeather
 
-/**
- * Interface for database access on Repo related operations.
- */
 @Dao
 abstract class WeatherDao {
 

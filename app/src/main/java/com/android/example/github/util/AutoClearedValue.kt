@@ -26,7 +26,6 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
 
     override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
         return _value ?: throw IllegalStateException(
-            "should never call auto-cleared-value get when it might not be available"
         )
     }
 
@@ -35,7 +34,4 @@ class AutoClearedValue<T : Any>(val fragment: Fragment) : ReadWriteProperty<Frag
     }
 }
 
-/**
- * Creates an [AutoClearedValue] associated with this fragment.
- */
 fun <T : Any> Fragment.autoCleared() = AutoClearedValue<T>(this)

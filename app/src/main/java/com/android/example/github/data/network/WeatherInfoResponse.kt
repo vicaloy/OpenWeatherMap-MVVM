@@ -1,4 +1,4 @@
-package com.android.example.github.api
+package com.android.example.github.data.network
 
 import com.android.example.github.vo.*
 import com.google.gson.annotations.SerializedName

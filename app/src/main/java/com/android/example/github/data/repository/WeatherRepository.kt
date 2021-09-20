@@ -2,11 +2,12 @@
 
 package com.android.example.github.data.repository
 
-import androidx.lifecycle.LifecycleCoroutineScope
-import com.android.example.github.api.*
+import com.android.example.github.data.network.RequestCompleteListener
+import com.android.example.github.data.network.WeatherInfoResponse
 import com.android.example.github.data.db.WeatherDao
+import com.android.example.github.data.prefs.Prefs
 import com.android.example.github.usecase.WeatherInfoUseCase
-import com.android.example.github.vo.*
+import com.android.example.github.vo.CurrentWeather
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,17 +16,12 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Repository that handles Repo instances.
- *
- * unfortunate naming :/ .
- * Repo - value object name
- * Repository - type of this class.
- */
+
 @Singleton
 class WeatherRepository @Inject constructor(
     private val weatherInfoUseCase: WeatherInfoUseCase,
-    private val weatherDao: WeatherDao
+    private val weatherDao: WeatherDao,
+    private val prefs: Prefs
 ) {
 
     fun loadWeather(cityId: Int, callback: RequestCompleteListener<CurrentWeather>) {
@@ -55,5 +51,9 @@ class WeatherRepository @Inject constructor(
                 callback.onRequestFailed(errorMessage)
             }
         })
+    }
+
+    fun logout(callback: RequestCompleteListener<Boolean>){
+        prefs.logout(callback)
     }
 }

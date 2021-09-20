@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.example.github.R
-import com.android.example.github.api.RequestCompleteListener
+import com.android.example.github.data.network.RequestCompleteListener
 import com.android.example.github.data.repository.RegisterRepository
 import com.android.example.github.vo.RegisterUser
 import javax.inject.Inject
@@ -40,6 +40,8 @@ class RegisterViewModel @Inject constructor(private val repository: RegisterRepo
             })
 
     }
+
+
 
     private fun registerDataChanged() {
         if (!isNameValid(register.name)) {

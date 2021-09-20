@@ -27,9 +27,6 @@ class RegisterFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var appExecutors: AppExecutors
-
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     var binding by autoCleared<RegisterFragmentBinding>()
@@ -61,33 +58,35 @@ class RegisterFragment : Fragment(), Injectable {
         val emailEditText = binding.email
         val birthdayEditText = binding.birthday
 
-
         registerViewModel.getUser()
 
         registerViewModel.registerFormState.observe(viewLifecycleOwner,
-            Observer { loginFormState ->
-                if (loginFormState == null) {
+            Observer { formState ->
+                if (formState == null) {
                     return@Observer
                 }
-                loginFormState.nameError?.let {
+                formState.nameError?.let {
                     usernameEditText.error = getString(it)
                 }
-                loginFormState.emailError?.let {
+                formState.emailError?.let {
                     emailEditText.error = getString(it)
                 }
-                loginFormState.birthdayError?.let {
+                formState.birthdayError?.let {
                     birthdayEditText.error = getString(it)
                 }
-                if(loginFormState.isDataValid){
-                    var loggedInUser = loginFormState.registerUse
+                if(formState.isDataValid){
+                    var registerUser = formState.registerUse
                         ?: RegisterUser(binding.username.text.toString(), binding.email.text.toString(), binding.birthday.text.toString())
-                    replaceFragment(loggedInUser)
+
+                    replaceFragment(registerUser)
                 }
             })
     }
 
     private fun replaceFragment(registerUser: RegisterUser){
-        findNavController().navigate(RegisterFragmentDirections.showWeather(registerUser.name, registerUser.email, registerUser.birthday))
+        if(registerUser.name.isNotBlank()){
+            findNavController().navigate(RegisterFragmentDirections.showWeather(registerUser.name, registerUser.email, registerUser.birthday))
+        }
 
     }
 }

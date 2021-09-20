@@ -1,6 +1,6 @@
 package com.android.example.github.data.repository
 
-import com.android.example.github.api.RequestCompleteListener
+import com.android.example.github.data.network.RequestCompleteListener
 import com.android.example.github.data.prefs.Prefs
 import com.android.example.github.vo.*
 import javax.inject.Inject
@@ -16,8 +16,7 @@ class RegisterRepository @Inject constructor(
         prefs.register(registerUser, callback)
     }
 
-    fun getUser(callback: RequestCompleteListener<RegisterUser>){
+    fun getUser(callback: RequestCompleteListener<RegisterUser>) {
         prefs.getUser(callback)
     }
-
 }
