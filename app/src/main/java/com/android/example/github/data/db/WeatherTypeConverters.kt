@@ -5,7 +5,7 @@ package com.android.example.github.data.db
 import androidx.room.TypeConverter
 import timber.log.Timber
 
-object GithubTypeConverters {
+object WeatherTypeConverters {
     @TypeConverter
     @JvmStatic
     fun stringToIntList(data: String?): List<Int>? {

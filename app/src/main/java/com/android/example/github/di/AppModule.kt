@@ -8,17 +8,12 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.android.example.github.BuildConfig
 import com.android.example.github.R
-import com.android.example.github.api.GithubService
-import com.android.example.github.data.db.GithubDb
-import com.android.example.github.data.db.RepoDao
-import com.android.example.github.data.db.UserDao
+import com.android.example.github.data.db.WeatherDb
 import com.android.example.github.data.db.WeatherDao
 import com.android.example.github.data.network.WeatherService
 import com.android.example.github.data.network.QueryParameterAddInterceptor
-import com.android.example.github.data.prefs.PreferencesDataSource
 import com.android.example.github.usecase.IWeatherInfoUseCase
 import com.android.example.github.usecase.WeatherInfoUseCase
-import com.android.example.github.util.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -28,16 +23,6 @@ import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class AppModule {
-    @Singleton
-    @Provides
-    fun provideGithubService(): GithubService {
-        return Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .build()
-            .create(GithubService::class.java)
-    }
 
     @Singleton
     @Provides
@@ -50,16 +35,15 @@ class AppModule {
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
             .create(WeatherService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideDb(app: Application): GithubDb {
+    fun provideDb(app: Application): WeatherDb {
         return Room
-            .databaseBuilder(app, GithubDb::class.java, "github.db")
+            .databaseBuilder(app, WeatherDb::class.java, "weather.db")
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -72,19 +56,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideUserDao(db: GithubDb): UserDao {
-        return db.userDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRepoDao(db: GithubDb): RepoDao {
-        return db.repoDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideWeatherDao(db: GithubDb): WeatherDao {
+    fun provideWeatherDao(db: WeatherDb): WeatherDao {
         return db.weatherDao()
     }
 

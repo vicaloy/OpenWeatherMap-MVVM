@@ -12,19 +12,11 @@ import com.android.example.github.vo.*
  */
 @Database(
     entities = [
-        User::class,
-        Repo::class,
-        Contributor::class,
-        RepoSearchResult::class,
         CurrentWeather::class],
     version = 4,
     exportSchema = false
 )
-abstract class GithubDb : RoomDatabase() {
-
-    abstract fun userDao(): UserDao
-
-    abstract fun repoDao(): RepoDao
+abstract class WeatherDb : RoomDatabase() {
 
     abstract fun weatherDao(): WeatherDao
 }

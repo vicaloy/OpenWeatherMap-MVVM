@@ -19,6 +19,7 @@ import com.android.example.github.databinding.RegisterFragmentBinding
 import com.android.example.github.presentation.binding.FragmentDataBindingComponent
 import com.android.example.github.di.Injectable
 import com.android.example.github.util.autoCleared
+import com.android.example.github.vo.RegisterUser
 import javax.inject.Inject
 
 class RegisterFragment : Fragment(), Injectable {
@@ -33,7 +34,7 @@ class RegisterFragment : Fragment(), Injectable {
 
     var binding by autoCleared<RegisterFragmentBinding>()
 
-    val registerViewModel: RegisterViewModel by viewModels {
+    private val registerViewModel: RegisterViewModel by viewModels {
         viewModelFactory
     }
 
@@ -59,8 +60,9 @@ class RegisterFragment : Fragment(), Injectable {
         val usernameEditText = binding.username
         val emailEditText = binding.email
         val birthdayEditText = binding.birthday
-        val loginButton = binding.login
-        val loadingProgressBar = binding.loading
+
+
+        registerViewModel.getUser()
 
         registerViewModel.registerFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
@@ -77,13 +79,15 @@ class RegisterFragment : Fragment(), Injectable {
                     birthdayEditText.error = getString(it)
                 }
                 if(loginFormState.isDataValid){
-                    replaceFragment()
+                    var loggedInUser = loginFormState.registerUse
+                        ?: RegisterUser(binding.username.text.toString(), binding.email.text.toString(), binding.birthday.text.toString())
+                    replaceFragment(loggedInUser)
                 }
             })
     }
 
-    private fun replaceFragment(){
-        findNavController().navigate(RegisterFragmentDirections.showWeather(binding.username.text.toString(), binding.email.text.toString(), binding.birthday.text.toString()))
+    private fun replaceFragment(registerUser: RegisterUser){
+        findNavController().navigate(RegisterFragmentDirections.showWeather(registerUser.name, registerUser.email, registerUser.birthday))
 
     }
 }

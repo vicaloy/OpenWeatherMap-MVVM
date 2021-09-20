@@ -1,5 +1,3 @@
-
-
 package com.android.example.github.presentation.register
 
 import android.util.Patterns
@@ -7,47 +5,80 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.example.github.R
-import com.android.example.github.data.repository.RepoRepository
+import com.android.example.github.api.RequestCompleteListener
+import com.android.example.github.data.repository.RegisterRepository
+import com.android.example.github.vo.RegisterUser
 import javax.inject.Inject
 
-class RegisterViewModel @Inject constructor(repoRepository: RepoRepository) : ViewModel() {
+class RegisterViewModel @Inject constructor(private val repository: RegisterRepository) :
+    ViewModel() {
 
     val register: RegisterObservable = RegisterObservable()
 
-    private val _loginForm = MutableLiveData<RegisterFormState>()
-    val registerFormState: LiveData<RegisterFormState> = _loginForm
+    private val _registerForm = MutableLiveData<RegisterFormState>()
+    val registerFormState: LiveData<RegisterFormState> = _registerForm
 
-    fun onRegisterClick(){
+
+    fun onRegisterClick() {
         registerDataChanged()
+    }
+
+    fun getUser() {
+        repository.getUser(
+            object :
+                RequestCompleteListener<RegisterUser> {
+                override fun onRequestSuccess(data: RegisterUser) {
+                    _registerForm.value = RegisterFormState(
+                        isDataValid = true,
+                        registerUse = data
+                    )
+                }
+
+                override fun onRequestFailed(errorMessage: String) {
+                    _registerForm.value = RegisterFormState(isDataValid = false)
+                }
+            })
+
     }
 
     private fun registerDataChanged() {
         if (!isNameValid(register.name)) {
-            _loginForm.value = RegisterFormState(nameError = R.string.invalid_username)
+            _registerForm.value = RegisterFormState(nameError = R.string.invalid_username)
         } else if (!isEmailValid(register.email)) {
-            _loginForm.value = RegisterFormState(emailError = R.string.invalid_email)
+            _registerForm.value = RegisterFormState(emailError = R.string.invalid_email)
         } else if (!isBirthdayValid(register.birthday)) {
-            _loginForm.value = RegisterFormState(birthdayError = R.string.invalid_birthday)
+            _registerForm.value = RegisterFormState(birthdayError = R.string.invalid_birthday)
         } else {
-            _loginForm.value = RegisterFormState(isDataValid = true)
+            repository.register(RegisterUser(register.name, register.email, register.birthday),
+                object :
+                    RequestCompleteListener<RegisterUser> {
+                    override fun onRequestSuccess(data: RegisterUser) {
+                        _registerForm.value = RegisterFormState(isDataValid = true)
+                    }
+
+                    override fun onRequestFailed(errorMessage: String) {
+                        _registerForm.value = RegisterFormState(isDataValid = false)
+                    }
+                })
+
         }
     }
 
-    // A placeholder username validation check
-    private fun isEmailValid(username: String): Boolean {
-        return if (username.contains("@")) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
+    private fun isEmailValid(email: String): Boolean {
+        return if (email.contains("@")) {
+            Patterns.EMAIL_ADDRESS.matcher(email).matches()
         } else {
-            username.isNotBlank()
+            email.isNotBlank()
         }
     }
 
-    // A placeholder password validation check
     private fun isNameValid(name: String): Boolean {
-        return name.length > 5
+        return name.isNotBlank()
     }
 
     private fun isBirthdayValid(birthday: String): Boolean {
-        return birthday.isNotEmpty()
+        val regex =
+            Regex("^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$")
+        return (birthday.matches(regex) && birthday.isNotBlank())
     }
 }

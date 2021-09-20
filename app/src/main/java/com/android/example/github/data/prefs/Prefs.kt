@@ -2,43 +2,42 @@ package com.android.example.github.data.prefs
 
 import android.content.SharedPreferences
 import com.android.example.github.api.RequestCompleteListener
-import com.android.example.github.data.repository.WeatherRepository
-import com.android.example.github.vo.LoggedInUser
+import com.android.example.github.vo.RegisterUser
 import javax.inject.Inject
 
-class PreferencesDataSource@Inject constructor(val sharedPref: SharedPreferences) {
-    private val TAG = "PreferencesDataSource"
+class Prefs@Inject constructor(val sharedPref: SharedPreferences) {
+    private val TAG = "Prefs"
 
-    fun register(loggedInUser: LoggedInUser, callback: RequestCompleteListener<LoggedInUser>){
+    fun register(registerUser: RegisterUser, callback: RequestCompleteListener<RegisterUser>){
           try{  with(sharedPref.edit()) {
-                putString("username", loggedInUser.name)
-                putString("email", loggedInUser.email)
-                putString("birthday", loggedInUser.birthday)
+                putString("username", registerUser.name)
+                putString("email", registerUser.email)
+                putString("birthday", registerUser.birthday)
                 apply()
             }
 
-            callback.onRequestSuccess(loggedInUser)
+            callback.onRequestSuccess(registerUser)
         } catch (e: Throwable) {
             callback.onRequestFailed(e.message.toString())
         }
     }
 
-    fun logout(callback: RequestCompleteListener<LoggedInUser>){
+    fun logout(callback: RequestCompleteListener<RegisterUser>){
         try {
             sharedPref.edit().clear().apply()
 
-            callback.onRequestSuccess(LoggedInUser("", "", ""))
+            callback.onRequestSuccess(RegisterUser("", "", ""))
 
         } catch (e: Throwable) {
             callback.onRequestFailed(e.message.toString())
         }
     }
 
-    fun getUser(callback: RequestCompleteListener<LoggedInUser>) {
+    fun getUser(callback: RequestCompleteListener<RegisterUser>) {
 
         try {
             return callback.onRequestSuccess(
-                LoggedInUser(
+                RegisterUser(
                     sharedPref.getString(
                         "username",
                         ""
