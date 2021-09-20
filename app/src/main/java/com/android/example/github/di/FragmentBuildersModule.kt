@@ -18,7 +18,6 @@ package com.android.example.github.di
 
 import com.android.example.github.presentation.repo.WeatherFragment
 import com.android.example.github.presentation.search.RegisterFragment
-import com.android.example.github.presentation.user.UserFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -27,11 +26,8 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
-    abstract fun contributeRepoFragment(): WeatherFragment
+    abstract fun contributeWeatherFragment(): WeatherFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeUserFragment(): UserFragment
-
-    @ContributesAndroidInjector
-    abstract fun contributeSearchFragment(): RegisterFragment
+    abstract fun contributeRegisterFragment(): RegisterFragment
 }

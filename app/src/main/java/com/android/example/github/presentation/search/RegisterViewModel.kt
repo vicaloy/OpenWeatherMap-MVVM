@@ -22,10 +22,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.example.github.R
 import com.android.example.github.data.repository.RepoRepository
-import com.android.example.github.testing.OpenForTesting
 import javax.inject.Inject
 
-@OpenForTesting
 class RegisterViewModel @Inject constructor(repoRepository: RepoRepository) : ViewModel() {
 
     val register: RegisterObservable = RegisterObservable()

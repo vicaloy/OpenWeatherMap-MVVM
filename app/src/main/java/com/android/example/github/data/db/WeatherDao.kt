@@ -21,14 +21,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.android.example.github.testing.OpenForTesting
 import com.android.example.github.vo.CurrentWeather
 
 /**
  * Interface for database access on Repo related operations.
  */
 @Dao
-@OpenForTesting
 abstract class WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

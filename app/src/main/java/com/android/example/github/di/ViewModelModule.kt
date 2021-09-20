@@ -21,8 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.android.example.github.presentation.repo.WeatherViewModel
 import com.android.example.github.presentation.search.RegisterViewModel
-import com.android.example.github.presentation.user.UserViewModel
-import com.android.example.github.presentation.viewmodel.GithubViewModelFactory
+import com.android.example.github.presentation.viewmodel.WeatherViewModelFactory
 
 import dagger.Binds
 import dagger.Module
@@ -33,19 +32,14 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(UserViewModel::class)
-    abstract fun bindUserViewModel(userViewModel: UserViewModel): ViewModel
-
-    @Binds
-    @IntoMap
     @ViewModelKey(RegisterViewModel::class)
-    abstract fun bindSearchViewModel(registerViewModel: RegisterViewModel): ViewModel
+    abstract fun bindRegisterViewModel(registerViewModel: RegisterViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(WeatherViewModel::class)
-    abstract fun bindRepoViewModel(weatherViewModel: WeatherViewModel): ViewModel
+    abstract fun bindWeatherViewModel(weatherViewModel: WeatherViewModel): ViewModel
 
     @Binds
-    abstract fun bindViewModelFactory(factory: GithubViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindViewModelFactory(factory: WeatherViewModelFactory): ViewModelProvider.Factory
 }
