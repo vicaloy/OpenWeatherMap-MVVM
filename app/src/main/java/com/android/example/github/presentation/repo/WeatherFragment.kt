@@ -29,7 +29,7 @@ import androidx.navigation.fragment.navArgs
 import com.android.example.github.AppExecutors
 import com.android.example.github.R
 import com.android.example.github.presentation.binding.FragmentDataBindingComponent
-import com.android.example.github.databinding.RepoFragmentBinding
+import com.android.example.github.databinding.WeatherFragmentBinding
 import com.android.example.github.di.Injectable
 import com.android.example.github.util.autoCleared
 import javax.inject.Inject
@@ -37,12 +37,12 @@ import javax.inject.Inject
 /**
  * The UI Controller for displaying a Github Repo's information with its contributors.
  */
-class RepoFragment : Fragment(), Injectable {
+class WeatherFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    val repoViewModel: RepoViewModel by viewModels {
+    val weatherViewModel: WeatherViewModel by viewModels {
         viewModelFactory
     }
 
@@ -51,18 +51,18 @@ class RepoFragment : Fragment(), Injectable {
 
     // mutable for testing
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-    var binding by autoCleared<RepoFragmentBinding>()
+    var binding by autoCleared<WeatherFragmentBinding>()
 
-    private val params by navArgs<RepoFragmentArgs>()
+    private val params by navArgs<WeatherFragmentArgs>()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = DataBindingUtil.inflate<RepoFragmentBinding>(
+        val dataBinding = DataBindingUtil.inflate<WeatherFragmentBinding>(
             inflater,
-            R.layout.repo_fragment,
+            R.layout.weather_fragment,
             container,
             false
         )
@@ -73,8 +73,8 @@ class RepoFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = repoViewModel
+        binding.viewModel = weatherViewModel
 
-        repoViewModel.loadWeather(1185241)
+        weatherViewModel.loadWeather(1185241)
     }
 }

@@ -37,14 +37,14 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 
 @RunWith(JUnit4::class)
-class RepoViewModelTest {
+class WeatherViewModelTest {
 
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
     private val repository = mock(RepoRepository::class.java)
-    private var repoViewModel = RepoViewModel(repository)
+    private var repoViewModel = WeatherViewModel(repository)
 
     @Test
     fun testNull() {
@@ -89,16 +89,16 @@ class RepoViewModelTest {
 
     @Test
     fun resetId() {
-        val observer = mock<Observer<RepoViewModel.RepoId>>()
+        val observer = mock<Observer<WeatherViewModel.RepoId>>()
         repoViewModel.repoId.observeForever(observer)
         verifyNoMoreInteractions(observer)
         repoViewModel.setId("foo", "bar")
-        verify(observer).onChanged(RepoViewModel.RepoId("foo", "bar"))
+        verify(observer).onChanged(WeatherViewModel.RepoId("foo", "bar"))
         reset(observer)
         repoViewModel.setId("foo", "bar")
         verifyNoMoreInteractions(observer)
         repoViewModel.setId("a", "b")
-        verify(observer).onChanged(RepoViewModel.RepoId("a", "b"))
+        verify(observer).onChanged(WeatherViewModel.RepoId("a", "b"))
     }
 
     @Test

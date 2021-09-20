@@ -39,7 +39,8 @@ class UserViewModel
         if (login == null) {
             AbsentLiveData.create()
         } else {
-            repoRepository.loadRepos(login)
+            //repoRepository.loadRepos(login)
+            AbsentLiveData.create()
         }
     }
     val user: LiveData<Resource<User>> = _login.switchMap { login ->

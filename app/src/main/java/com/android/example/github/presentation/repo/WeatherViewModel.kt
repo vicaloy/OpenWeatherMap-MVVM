@@ -27,7 +27,7 @@ import java.util.*
 import javax.inject.Inject
 
 @OpenForTesting
-class RepoViewModel @Inject constructor(val repository: WeatherRepository) : ViewModel() {
+class WeatherViewModel @Inject constructor(val repository: WeatherRepository) : ViewModel() {
 
     fun loadWeather(cityId: Int) {
         repository.loadWeather(cityId, object :

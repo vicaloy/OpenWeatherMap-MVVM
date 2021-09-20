@@ -16,7 +16,7 @@
 
 package com.android.example.github.di
 
-import com.android.example.github.presentation.repo.RepoFragment
+import com.android.example.github.presentation.repo.WeatherFragment
 import com.android.example.github.presentation.search.RegisterFragment
 import com.android.example.github.presentation.user.UserFragment
 
@@ -27,7 +27,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
-    abstract fun contributeRepoFragment(): RepoFragment
+    abstract fun contributeRepoFragment(): WeatherFragment
 
     @ContributesAndroidInjector
     abstract fun contributeUserFragment(): UserFragment

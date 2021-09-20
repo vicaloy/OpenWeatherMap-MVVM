@@ -29,6 +29,7 @@ import com.android.example.github.data.db.UserDao
 import com.android.example.github.data.db.WeatherDao
 import com.android.example.github.data.network.WeatherService
 import com.android.example.github.data.network.QueryParameterAddInterceptor
+import com.android.example.github.data.prefs.PreferencesDataSource
 import com.android.example.github.usecase.IWeatherInfoUseCase
 import com.android.example.github.usecase.WeatherInfoUseCase
 import com.android.example.github.util.LiveDataCallAdapterFactory
@@ -106,4 +107,6 @@ class AppModule {
     fun provideWeatherInfoUseCase(weatherInfoUseCase: WeatherInfoUseCase): IWeatherInfoUseCase{
         return WeatherInfoUseCase(provideWeatherService())
     }
+
+
 }

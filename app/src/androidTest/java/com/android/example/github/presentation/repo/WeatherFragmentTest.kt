@@ -61,7 +61,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
-class RepoFragmentTest {
+class WeatherFragmentTest {
     @Rule
     @JvmField
     val executorRule = TaskExecutorWithIdlingResourceRule()
@@ -75,19 +75,19 @@ class RepoFragmentTest {
     private val navController = mock<NavController>()
     private val repoLiveData = MutableLiveData<Resource<Repo>>()
     private val contributorsLiveData = MutableLiveData<Resource<List<Contributor>>>()
-    private lateinit var viewModel: RepoViewModel
+    private lateinit var viewModel: WeatherViewModel
     private lateinit var mockBindingAdapter: FragmentBindingAdapters
 
     @Before
     fun init() {
-        viewModel = mock(RepoViewModel::class.java)
+        viewModel = mock(WeatherViewModel::class.java)
         mockBindingAdapter = mock(FragmentBindingAdapters::class.java)
         doNothing().`when`(viewModel).setId(anyString(), anyString())
         `when`(viewModel.repo).thenReturn(repoLiveData)
         `when`(viewModel.contributors).thenReturn(contributorsLiveData)
         val scenario = launchFragmentInContainer(
                 RepoFragmentArgs("a", "b").toBundle()) {
-            RepoFragment().apply {
+            WeatherFragment().apply {
                 appExecutors = countingAppExecutors.appExecutors
                 viewModelFactory = ViewModelUtil.createFor(viewModel)
                 dataBindingComponent = object : DataBindingComponent {
