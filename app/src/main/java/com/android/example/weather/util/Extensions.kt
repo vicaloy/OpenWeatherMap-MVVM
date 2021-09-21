@@ -10,16 +10,6 @@ fun Date.format(): String{
     return simpleDateFormat.format(this)
 }
 
-fun MutableList<City>.convertToListOfCityName() : MutableList<String> {
-
-    val cityNameList: MutableList<String> = mutableListOf()
-
-    for (city in this) {
-        cityNameList.add(city.name)
-    }
-
-    return  cityNameList
-}
 
 fun Double.kelvinToCelsius() : Int {
 

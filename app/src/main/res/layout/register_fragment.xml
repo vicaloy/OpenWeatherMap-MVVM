@@ -62,7 +62,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:text="@{viewModel.register.birthday}"
-            android:hint="Borthday"
+            android:hint="Birthday"
             android:imeActionLabel="Birthday"
             android:imeOptions="actionDone"
             android:inputType="date"
