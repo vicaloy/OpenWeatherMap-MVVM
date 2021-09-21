@@ -1,0 +1,72 @@
+[
+  {
+    "id": 2172797,
+    "name": "Cairns",
+    "state": "",
+    "country": "AU",
+    "coord": {
+      "lon": 145.766663,
+      "lat": -16.91667
+    }
+  },
+  {
+    "id": 3441575,
+    "name": "Montevideo",
+    "state": "",
+    "country": "UY",
+    "coord": {
+      "lon": -56.167351,
+      "lat": -34.833462
+    }
+  },
+  {
+    "id": 3451189,
+    "name": "Rio de Janeiro",
+    "state": "",
+    "country": "BR",
+    "coord": {
+      "lon": -42.5,
+      "lat": -22.0
+    }
+  },
+  {
+    "id": 833,
+    "name": "Ḩeşār-e Sefīd",
+    "state": "",
+    "country": "IR",
+    "coord": {
+      "lon": 47.159401,
+      "lat": 34.330502
+    }
+  },
+  {
+    "id": 2797782,
+    "name": "Gedinne",
+    "state": "",
+    "country": "BE",
+    "coord": {
+      "lon": 4.93835,
+      "lat": 49.98048
+    }
+  },
+  {
+    "id": 3105192,
+    "name": "Villanueva de Viver",
+    "state": "",
+    "country": "ES",
+    "coord": {
+      "lon": -0.65,
+      "lat": 40.049999
+    }
+  },
+  {
+    "id": 4135394,
+    "name": "Washington County",
+    "state": "AR",
+    "country": "US",
+    "coord": {
+      "lon": -94.233543,
+      "lat": 35.966751
+    }
+  }
+]

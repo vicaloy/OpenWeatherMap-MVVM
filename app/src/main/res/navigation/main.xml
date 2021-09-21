@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.android.example.github.presentation.register.RegisterFragment"
+        android:name="com.android.example.weather.presentation.register.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/showWeather"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.android.example.github.presentation.weather.WeatherFragment"
+        android:name="com.android.example.weather.presentation.weather.WeatherFragment"
         android:label="WeatherFragment" >
         <argument
             android:name="name"

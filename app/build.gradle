@@ -1,36 +1,38 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'kotlin-allopen'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
-allOpen {
-    // allows mocking for classes w/o directly opening them for release builds
-    annotation 'com.android.example.github.testing.OpenClass'
-}
 android {
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
     defaultConfig {
-        applicationId "com.android.example.github"
+        applicationId "com.android.example.weather"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.android.example.github.util.GithubTestRunner"
     }
     buildTypes {
-          debug {
-              testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
-              buildConfigField "String", "BASE_URL", "\""+"https://samples.openweathermap.org/data/2.5/"+ "\""
-              buildConfigField "String", "API_KEY", "\"" + "b6907d289e10d714a6e88b30761fae22" + "\""
-          }
+        def addConstantTo = {target, constantName, constantValue ->
+            target.manifestPlaceholders += [ (constantName):constantValue]
+            target.buildConfigField "String", "${constantName}", "\"${constantValue}\""
+        }
+
+        debug {
+            testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
+            buildConfigField "String", "BASE_URL", "\"" + getBaseUrl() + "\""
+            buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+            addConstantTo(owner, "MAPS_API_KEY", getMapsApiKey())
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\""+"https://samples.openweathermap.org/data/2.5/"+ "\""
-            buildConfigField "String", "API_KEY", "\"" + "b6907d289e10d714a6e88b30761fae22" + "\""
+            buildConfigField "String", "BASE_URL", "\"" + getBaseUrl() + "\""
+            buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+            addConstantTo(owner, "MAPS_API_KEY", getMapsApiKey())
+
         }
     }
 
@@ -78,6 +80,10 @@ dependencies {
 
     implementation deps.timber
 
+    implementation deps.play_services_maps
+
+    implementation deps.play_services_location
+
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
     kapt deps.room.compiler
@@ -111,4 +117,37 @@ project.tasks.whenTaskAdded {
     if (it.name == "testReleaseUnitTest") {
         it.enabled = false
     }
+}
+
+def getBaseUrl() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    String baseUrl = properties.getProperty("BASE_URL")
+    if (baseUrl == null)
+        throw new GradleException("Add 'BASE_URL' field at local.properties file.")
+
+    return baseUrl
+}
+
+def getApiKey() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    String appId = properties.getProperty("APP_ID")
+    if (appId == null)
+        throw new GradleException("Add 'APP_ID' field at local.properties file.")
+
+    return appId
+}
+
+def getMapsApiKey() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    String appId = properties.getProperty("MAPS_API_KEY")
+    if (appId == null)
+        throw new GradleException("Add 'MAPS_API_KEY' field at local.properties file.")
+
+    return appId
 }

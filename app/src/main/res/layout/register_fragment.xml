@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.android.example.github.presentation.register.RegisterViewModel" />
+            type="com.android.example.weather.presentation.register.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
