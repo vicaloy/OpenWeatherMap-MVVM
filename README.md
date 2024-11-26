@@ -1,5 +1,5 @@
 
-# Android Example Project: OpenWeatherMap API Integration
+# 🌞 🌧️ ⛅ Android Example Project: OpenWeatherMap API Integration
 
 This project is an Android application demonstrating how to consume the REST API from OpenWeatherMap. It showcases for dependency injection, data management.
 
